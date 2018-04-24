@@ -1,19 +1,20 @@
 from . import login_manager
 from flask_login import UserMixin
 from datetime import datetime
+from . import db
 
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
-	name = db.Column(db.String(255))
-	email = db.Column(db.String(255))
-	pass_secure = db.Column(db.String(255))
-	creatorEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
-	joinerEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
-
-	def __repr__(self):
-		return f'User {self.name}'
+    name = db.Column(db.String(255))
+    email = db.Column(db.String(255))
+    pass_secure = db.Column(db.String(255))
+    creatorEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
+    joinerEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
+    
+    def __repr__(self):
+    	return f'User {self.name}'
 
 class Event(db.Model):
 	__tablename__ = 'events'
@@ -21,7 +22,8 @@ class Event(db.Model):
 	name = db.Column(db.String)
 	location = db.Column(db.String)
 	p_count = db.Column(db.Integer)
-	event_date = db.Column(db.Datetime)
+	event_date = db.Column(db.Date)
+	description = db.Column(db.String)
 	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	joiner_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	category_id = db.Column(db.Integer,db.ForeignKey('events.id'))
