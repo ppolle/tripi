@@ -10,8 +10,7 @@ class User(UserMixin,db.Model):
     name = db.Column(db.String(255))
     email = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
-    creatorEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
-    joinerEvents = db.relationship('Event',backref = 'role',lazy = 'dynamic')
+    
     
     def __repr__(self):
     	return f'User {self.name}'
@@ -25,8 +24,8 @@ class Event(db.Model):
 	event_date = db.Column(db.Date)
 	description = db.Column(db.String)
 	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-	joiner_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-	category_id = db.Column(db.Integer,db.ForeignKey('events.id'))
+	joiner_id = db.Column(db.Integer)
+	category_id = db.Column(db.Integer)
 	
 
 	def __repr__(self):
