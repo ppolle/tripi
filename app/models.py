@@ -24,3 +24,6 @@ class Event(db.Model):
 	event_date = db.Column(db.Datetime)
 	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	joiner_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+	def __repr__(self):
+		return f'Event {self.name}'
