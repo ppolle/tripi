@@ -1,6 +1,7 @@
 from . import login_manager,db
 from flask_login import UserMixin
 from datetime import datetime
+from . import db
 
 
 class User(UserMixin,db.Model):
@@ -21,7 +22,8 @@ class Event(db.Model):
 	name = db.Column(db.String)
 	location = db.Column(db.String)
 	p_count = db.Column(db.Integer)
-	event_date = db.Column(db.DateTime,default=datetime.utcnow)
+	event_date = db.Column(db.Date)
+	description = db.Column(db.String)
 	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	joiner_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	category_id = db.Column(db.Integer,db.ForeignKey('events.id'))
