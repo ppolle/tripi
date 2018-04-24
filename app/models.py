@@ -17,13 +17,24 @@ class User(UserMixin,db.Model):
 
 class Event(db.Model):
 	__tablename__ = 'events'
-	id = db.Column(db.Integer,primaru_key = True)
+	id = db.Column(db.Integer,primary_key = True)
 	name = db.Column(db.String)
 	location = db.Column(db.String)
 	p_count = db.Column(db.Integer)
 	event_date = db.Column(db.Datetime)
 	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	joiner_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+	category_id = db.Column(db.Integer,db.ForeignKey('events.id'))
+	
 
 	def __repr__(self):
 		return f'Event {self.name}'
+
+class Category(db.Model):
+	__tablename__ = 'categories'
+	id = db.Column(db.Integer,primary_key = True)
+	name = db.Column(db.String)
+	categories = db.relationship('Event',backref = 'event',lazy = 'dynamic')
+
+	def __repr__(self):
+		return f'Category {self.name}'
