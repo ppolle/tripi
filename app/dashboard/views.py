@@ -18,7 +18,16 @@ def dashboardIndex(id):
     render_template('dashbaord/index.html',id = id, event_form=event_form)
 
 
+@dashboard.route('/editEvent/<int:id>', methods=['GET', 'POST'])
+def editEvent(id):
+    editForm = editEventForm()
 
+    if editForm.validate_on_submit():
+        Event.query.filter_by(id=id).update({"name": editForm.title.data, "location": editForm.location.data,
+                                             "p_count": editForm.persons.data, "event_date": editForm.date.data, "description": editForm.event_desc.data})
+        db.session.commit()
+        flash(f'Event {editForm.title.data} succesfully edited.')
+        return redirect(url_for('dashboardIndex.dashboard', id=id))
+    render_template('dashbaord/index.html', id=id, editForm=editForm)
 
-
-
+    
