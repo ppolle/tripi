@@ -23,7 +23,7 @@ class Event(db.Model):
 	p_count = db.Column(db.Integer)
 	event_date = db.Column(db.Date)
 	description = db.Column(db.String)
-	creator_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+	creator_id = db.Column(db.Integer)
 	joiner_id = db.Column(db.Integer)
 	category_id = db.Column(db.Integer)
 	
@@ -35,7 +35,7 @@ class Category(db.Model):
 	__tablename__ = 'categories'
 	id = db.Column(db.Integer,primary_key = True)
 	name = db.Column(db.String)
-	categories = db.relationship('Event',backref = 'event',lazy = 'dynamic')
+
 
 	def __repr__(self):
 		return f'Category {self.name}'
