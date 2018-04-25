@@ -7,6 +7,7 @@ from .. import db
 
 
 @dashboard.route('/createEvent/<int:id>', methods=['GET', 'POST'])
+@login_required
 def dashboardIndex(id):
     event_form = createEventForm()
    
@@ -25,6 +26,7 @@ def dashboardIndex(id):
 
 
 @dashboard.route('/editEvent/<int:id>', methods=['GET', 'POST'])
+@login_required
 def editEvent(id):
     editForm = editEventForm()
     event = Event.query.get(id)
@@ -39,7 +41,18 @@ def editEvent(id):
     editForm.title.data = event.name
     editForm.event_desc.data = event.description
     editForm.date.data = event.event_date
+    editForm.category.data = event.event
     editForm.persons.data = event.p_count
-    return render_template('dashboard/edit.html', editForm=editForm)
+    return render_template('dashboard/edit.html', editForm=editForm,event=event)
+
+@dashboard.route('/deleteEvent/<int:id>')
+@login_required
+def delete(id):
+    event = Event.query.get(id)
+    db.session.delete(event)
+    db.session.commit()
+
+    flash(f'You have succesfully deleted the {event.name} Event')
+    return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
 
 
