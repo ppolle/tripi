@@ -3,8 +3,8 @@ import os
 class Config:
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	UPLOADED_PHOTOS_DEST ='app/static/photos'
-	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://peter:iamBOSS12@localhost/tripi'
-
+	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://maryanne:iamBOSS12@localhost/tripi'
+	SECRET_KEY=os.environ.get('SECRET_KEY')
 	MAIL_SERVER = 'smtp.googlemail.com'
 	MAIL_PORT = 587
 	MAIL_USE_TLS = True

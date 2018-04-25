@@ -19,8 +19,9 @@ def category(id):
 
 	events=Event.query.filter_by(category_id=id).all()
 	return render_template('main/category.html',categories=categories,events=events)
-@main.route('/Event/<int:id>')
+@main.route('/category/event/<int:id>',methods=["GET","POST"])
 def event(id):
 	title='Available Events'
-	trips=Event.query.filter_by(id=id).first()
-	return render_template('main/events.html',title=title,trips=trips)
+	trips=Event.query.filter_by(id=id).all()
+	activities=Event.query.all()
+	return render_template('main/event.html',title=title,trips=trips,activities=activities)
