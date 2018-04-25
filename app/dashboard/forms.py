@@ -5,12 +5,13 @@ from wtforms.validators import Required
 
 class createEventForm(FlaskForm):
 
-    title = StringField('Event Name', validators=[Required()])
-    location = StringField('Event location', validators=[Required()])
-    persons = IntegerField('Number of people', validators=[Required()])
+    title = StringField('Event Name', validators=[Required()],default = "Event Name")
+    location = StringField('Event location', validators=[Required()], default="Event Name")
+    persons = IntegerField('Number of people', validators=[
+                           Required()], default="Event Name")
     date = DateField('Event Date', validators=[Required()])
     event_desc = TextAreaField('Event Description')
-    submit = SubmitField('Submit')
+    submit = SubmitField('Create Event')
 
 
 class editEventForm(FlaskForm):
