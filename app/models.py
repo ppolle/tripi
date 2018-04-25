@@ -1,9 +1,8 @@
 from . import login_manager,db
 from flask_login import UserMixin
 from datetime import datetime
-from flask_admin.contrib.sqla import ModelView
 from werkzeug.security import generate_password_hash,check_password_hash
-from . import db, admin
+from . import db
 
 
 class User(UserMixin,db.Model):

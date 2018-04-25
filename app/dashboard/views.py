@@ -14,7 +14,7 @@ def dashboardIndex(id):
     event = Event.query.filter_by(creator_id=id).first()
     eventsJoined = Event.query.filter_by(joiner_id=id).all()
     if event_form.validate_on_submit():
-        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id)
+        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id, category_id = event_form.category.data)
         db.session.add(event)
         db.session.commit()
         flash(f'Event {event_form.title.data} created succesfully')

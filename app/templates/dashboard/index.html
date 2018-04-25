@@ -5,30 +5,42 @@
 <div class="container">
     <h1 class="text-center">Dashboard</h1>
     <!-- Button trigger modal -->
+    {% for message in get_flashed_messages() %}
+          <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+          </div>
+      {% endfor %}
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Create Event
     </button>
-<table class="table table-bordered">
-   <tr>
-       <th>Name of event</th>
-    <th>Location</th>
-<th>description</th>
-<th>Persons</th>
-<th></th>
-   </tr>
-   {%for event in events%}
-   <tr>
-       
-<td>{{event.name}}</td>
-<td>{{event.location}}</td>
-<td>{{event.description}}</td>
-<td>{{event.p_count}}</td>
-<td>
-<a href="{{url_for('dashboard.editEvent',id = event.id)}}" class="btn btn-sm btn-success">Edit</a>
-</td>
-   </tr>
-   {%endfor%}
-</table>
+    {% if events%}
+        <table class="table table-bordered">
+           <tr>
+                <th>Name of event</th>
+                <th>Location</th>
+                <th>description</th>
+                <th>Persons</th>
+                <th></th>
+           </tr>
+            {%for event in events%}
+               <tr>
+                   
+                  <td>{{event.name}}</td>
+                  <td>{{event.location}}</td>
+                  <td>{{event.description}}</td>
+                  <td>{{event.p_count}}</td>
+                  <td>
+                  <a href="{{url_for('dashboard.editEvent',id = event.id)}}" class="btn btn-sm btn-success">Edit</a>
+                  </td>
+              </tr>
+           {%endfor%}
+          </table>
+
+    {%else%}
+    <h4 class="text-center">You currently do not have any registered event. Register an event <a href="#" data-toggle="modal" data-target="#myModal">here</a></h4>
+    {%endif%}
+
 
 </div>
 <!-- Modal -->
