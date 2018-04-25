@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{% block content %}
+<ul>
+<li> {{macro.displayCategory(events)}} </li>
+{% for event in events %}
+<button type="button" class="btn btn-info"><a href ="{{url_for('main.event',id=event.id)}}">View Event details</a></button>
+
+{% endfor %}
+</ul>
+{% endblock %}
