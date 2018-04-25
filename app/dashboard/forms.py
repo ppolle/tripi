@@ -1,6 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, DateField, IntegerField,SelectField
-from wtforms.validators import Required
+from wtforms import StringField, TextAreaField, SubmitField, IntegerField,SelectField
+from wtforms.validators import Required,Length
+from wtforms.fields.html5 import DateField
+from wtforms_components import DateRange
+from datetime import datetime, date
 
 
 class createEventForm(FlaskForm):
@@ -8,8 +11,8 @@ class createEventForm(FlaskForm):
     title = StringField('Event Name', validators=[Required()],default = "Event Name")
     location = StringField('Event location', validators=[Required()], default="Event Location")
     persons = IntegerField('Number of people', validators=[
-                           Required()], default="Number of Persons")
-    date = DateField('Event Date', validators=[Required()])
+                           Required(),Length(max=100)], default="Number of Persons")
+    date = DateField('Event Date', validators=[Required(),DateRange(min=date.today())],format = '%Y-%m-%d')
     category = SelectField(u'Select Category', choices=[('1', 'Sports'),('2', 'Entertainment'), ('3', 'Adventure'), ('4', 'Fun')])
     event_desc = TextAreaField('Event Description')
     submit = SubmitField('Create Event')
