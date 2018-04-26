@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+<h1> People also going for the event</h1>
+  <p>{{macro.displayPeople(user)}}</p>
+     {{macro.displayLeft_space(event)}}
+
+{% endblock %}

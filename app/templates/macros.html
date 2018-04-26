@@ -16,5 +16,23 @@
      <p>{{event.location}}</p>
      <p>{{event.p_count}}</p>
 
+
+
+
+
+
+    <button type="button" class="btn btn-info"><a href="{{url_for('main.join' ,id=event.id,user_id=getuser(current_user.id))}}">Join Event</a></button>
+
       {% endfor %}
+      {% endmacro %}
+      {% macro displayPeople(user_list) %}
+      {% for user in user_list %}
+       <h2> <b>Name:</b>{{user.name}}</h2>
+       <h2><b>Email:</b>{{user.email}}</h2>
+       {% endfor %}
+       {% endmacro %}
+      {% macro displayLeft_space(event_list) %}
+      {% for event in event_list %}
+        <h2>Space left:{{event.p_count}}</h2>
+        {% endfor %}
       {% endmacro %}

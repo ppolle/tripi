@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
-{% import 'macros.html' as macro %}
+{% import 'macros.html' as macro with context %}
 
 {% block content %}
 
 <p> {{macro.displayEvent(trips)}} </p>
+
+
+
+
+
+
+
 
 {% endblock %}

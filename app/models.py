@@ -3,17 +3,32 @@ from flask_login import UserMixin
 from datetime import datetime
 from . import db,admin
 from flask_admin.contrib.sqla import ModelView
+from werkzeug.security import generate_password_hash,check_password_hash
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id=db.Column(db.Integer,primary_key = True)
     name=db.Column(db.String(255))
     email=db.Column(db.String(255))
     pass_secure=db.Column(db.String(255))
+    event_id = db.Column(db.Integer,db.ForeignKey('events.id'))
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
+    @password.setter
+    def password(self, password):
+        self.pass_secure = generate_password_hash(password)
 
-
+    def verify_password(self,password):
+        return check_password_hash(self.pass_secure,password)
     def __repr__(self):
         return f'User {self.name}'
+    def __repr__(self):
+        return f'User {self.name}'
+
 
 class Event(db.Model):
 	__tablename__ = 'events'
@@ -24,7 +39,7 @@ class Event(db.Model):
 	event_date = db.Column(db.Date)
 	description = db.Column(db.String)
 	creator_id = db.Column(db.Integer)
-	joiner_id = db.Column(db.Integer)
+	users=db.relationship('User',backref='user',lazy='dynamic')
 	category_id = db.Column(db.Integer,db.ForeignKey('categories.id'))
 
 	def __repr__(self):
@@ -40,3 +55,4 @@ class Category(db.Model):
 		return f'Category {self.name}'
 admin.add_view(ModelView(Event, db.session))
 admin.add_view(ModelView(Category, db.session))
+admin.add_view(ModelView(User, db.session))
