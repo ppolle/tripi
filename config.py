@@ -12,11 +12,16 @@ class Config:
 	MAIL_USE_TLS = True
 	MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
 	MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-
+	CLIENT_ID = os.environ.get('CLIENT_ID')
+	CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+	# paypalrestsdk.configure({
+	# 	"mode": "sandbox",
+	# 	"client_id": "AT_VnbXIVNiMMSOCBdMBukGy1-sgdrEUp8Nc4b_4Gg0VoSsM2LbzUUFjnM9_lLl0vWhyQ5bEEIBehAQj",
+	# 	"client_secret": "ECuYlVhAGssqQLWNoafFxNxiXfacuPPfNbkt_xwDm_JvNWlZf2JBmSnmvGBAn8olJtkvhqiECXOUTWH8" })
 	paypalrestsdk.configure({
 		"mode": "sandbox",
-		"client_id": "AT_VnbXIVNiMMSOCBdMBukGy1-sgdrEUp8Nc4b_4Gg0VoSsM2LbzUUFjnM9_lLl0vWhyQ5bEEIBehAQj",
-		"client_secret": "ECuYlVhAGssqQLWNoafFxNxiXfacuPPfNbkt_xwDm_JvNWlZf2JBmSnmvGBAn8olJtkvhqiECXOUTWH8" })
+		"client_id": CLIENT_ID,
+		"client_secret": CLIENT_SECRET })
 
 	@staticmethod
 	def init_app(app):

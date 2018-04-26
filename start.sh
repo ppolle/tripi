@@ -1,4 +1,8 @@
 #export to work for wtf forms
 export SECRET_KEY=rfuywelfhujufylbhsdjlhfrsrbsdhsdb
 
+#paypal
+export CLIENT_SECRET=ECuYlVhAGssqQLWNoafFxNxiXfacuPPfNbkt_xwDm_JvNWlZf2JBmSnmvGBAn8olJtkvhqiECXOUTWH8
+export CLIENT_ID=AT_VnbXIVNiMMSOCBdMBukGy1-sgdrEUp8Nc4b_4Gg0VoSsM2LbzUUFjnM9_lLl0vWhyQ5bEEIBehAQj
+
 python3.6 manage.py server
