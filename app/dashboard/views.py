@@ -1,9 +1,10 @@
 from flask import render_template, redirect, url_for, flash, request
 from . import dashboard
 from flask_login import login_user, logout_user, login_required, current_user
-from ..models import User, Event, Category
+# from ..models import User, Event, Category
 from .forms import createEventForm, editEventForm
 from .. import db
+from wtforms import DateField
 
 
 @dashboard.route('/createEvent/<int:id>', methods=['GET', 'POST'])
@@ -14,7 +15,8 @@ def dashboardIndex(id):
     event = Event.query.filter_by(creator_id=id).first()
     eventsJoined = Event.query.filter_by(joiner_id=id).all()
     if event_form.validate_on_submit():
-        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id)
+        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data,
+                      event_date=event_form.date.data.strftime('%x'), description=event_form.event_desc.data, creator_id=id)
         db.session.add(event)
         db.session.commit()
         flash(f'Event {event_form.title.data} created succesfully')
@@ -31,7 +33,7 @@ def editEvent(id):
 
     if editForm.validate_on_submit():
         Event.query.filter_by(id=id).update({"name": editForm.title.data, "location": editForm.location.data,
-                                             "p_count": editForm.persons.data, "event_date": editForm.date.data, "description": editForm.event_desc.data})
+                                             "p_count": editForm.persons.data, "event_date": editForm.date.data.strftime('%x'), "description": editForm.event_desc.data})
         db.session.commit()
         flash(f'Event {editForm.title.data} succesfully edited.')
         return redirect(url_for('dashboard.dashboardIndex', id=event.creator_id))

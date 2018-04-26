@@ -2,6 +2,15 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
 
+{%block scripts%}
+{{super()}}
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".dtpick").datepicker();
+    });
+</script>
+{%endblock%}
 <div class="container">
     <h1 class="text-center">Dashboard</h1>
     <!-- Button trigger modal -->

@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
+from app import request
+
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -36,5 +38,9 @@ def create_app(config_name):
 
     from .dashboard import dashboard as dashboard_blueprint
     app.register_blueprint(dashboard_blueprint)
+
+    # setting config
+    from .request import configure_request
+    configure_request(app)
 
     return app

@@ -1,4 +1,4 @@
-#export to work for wtf forms
+export DISTANCE_API_KEY=AIzaSyBqbV13-4TJrFXeeBFXiRxilkKBYUb7lMQ
 export SECRET_KEY=rfuywelfhujufylbhsdjlhfrsrbsdhsdb
 
 python3.6 manage.py server
