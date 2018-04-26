@@ -14,6 +14,7 @@ def dashboardIndex(id):
     events = Event.query.filter_by(creator_id = id).all()
     event = Event.query.filter_by(creator_id=id).first()
     eventsJoined = Event.query.filter_by(joiner_id=id).all()
+
     if event_form.validate_on_submit():
         event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id, category_id = event_form.category.data)
         db.session.add(event)
@@ -21,8 +22,8 @@ def dashboardIndex(id):
         flash(f'Event {event_form.title.data} created succesfully')
         return redirect(url_for('dashboard.dashboardIndex',id = id))
     
- 
-    return render_template('dashboard/index.html', id=id, event_form=event_form, events= events)
+    title = "Tripi | Dashboard"
+    return render_template('dashboard/index.html', id=id, event_form=event_form, events= events, title= title)
 
 
 @dashboard.route('/editEvent/<int:id>', methods=['GET', 'POST'])
@@ -43,7 +44,8 @@ def editEvent(id):
     editForm.date.data = event.event_date
     editForm.category.data = event.event
     editForm.persons.data = event.p_count
-    return render_template('dashboard/edit.html', editForm=editForm,event=event)
+    title = "Tripi | Edit Event"
+    return render_template('dashboard/edit.html', editForm=editForm,event=event, title =  title)
 
 @dashboard.route('/deleteEvent/<int:id>')
 @login_required
@@ -56,3 +58,10 @@ def delete(id):
     return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
 
 
+@dashboard.route('/single/<int:id>')
+@login_required
+def single(id):
+    details = Event.query.get(id)
+    title = f"Tripi| {details.name}"
+
+    return render_template('dashboard/single.html',details =  details,title= title)
