@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
+
+<div class="container">
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h3>Dashboard/View Event Details</h3>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+    
+    <div class="col-md-2">
+
+    	<a href="{{url_for('dashboard.dashboardIndex',id = current_user.id)}}" class="btn btn-sm btn-block btn-success">Dashboard </a>
+    	<a href="{{url_for('dashboard.delete',id = details.id)}}" class="btn btn-sm btn-block btn-danger">Delete This Event</a>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h4 class="panel-title">{{details.name}}</h4>
+		  </div>
+		  <div class="panel-body">
+		  <div class="row">
+		  	<div class="col-md-8">
+		  		<p>Event Location: {{details.location}}</p>
+		  	</div>
+		  	<div class="col-md-4">
+		  		<p>Event date:</p>
+		  		<p>{{details.event_date.strftime('%B %d, %Y')}}</p> 
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-8">
+		  		<p>Event description:</p>
+		    <div class="well">{{formatEvent | safe}}</div>
+		  	</div>
+		  	<div class="col-md-4">
+		  		Event Status:
+		  		<p></p>
+		  	</div>
+		  </div>  
+		    
+		  </div>
+		</div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+{% endblock %}

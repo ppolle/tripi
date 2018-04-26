@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
-
+{% import 'macros.html' as macro %}
 {% block content %}
-<div class="container">
-	<h1 class="text-center">Welcome to Flask Base App</h1>	
-</div>
+<section id="banner">
+  <div class="inner">
+    <h1>Something: <span>Is always<br />
+    HAPPENING</span></h1>
+    <ul class="actions">
+      <li><a href="/authenticate/route" class="button alt">Get Started</a></li>
+    </ul>
+  </div>
+</section>
 
+<ul>
+  {{macro.displayCategory(category)}}
+</ul>
 {% endblock %}

@@ -1,0 +1,20 @@
+<!--A macro for displaying diffrent categories on the index page and few events-->
+{% macro displayCategory(category_list) %}
+  {% for category in category_list  %}
+   <h2>{{category.event}}</h2>
+  <h3><a href="category/{{ category.id }}">{{category.name}}</a></h3>
+
+  {% endfor %}
+  {% endmacro %}
+
+  <!--for displayin the all the events in these category-->
+  {% macro displayEvent(events_list) %}
+    {% for event in events_list %}
+     <h2>{{event.name}}</h2>
+     <p>{{event.description}}</p>
+     <p>{{event.event_date}}</p>
+     <p>{{event.location}}</p>
+     <p>{{event.p_count}}</p>
+
+      {% endfor %}
+      {% endmacro %}

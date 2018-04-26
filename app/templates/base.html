@@ -4,6 +4,10 @@
   {{super()}}
 
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <!--Importing the simple mde css and js files  -->
+  {{ simplemde.css}}
+  {{ simplemde.js }}
 {%endblock%}
 
 {% block navbar %}

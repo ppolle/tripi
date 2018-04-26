@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
+
+<div class="container">
+    <h1 class="text-center">Dashboard/Edit Event</h1>
+    <div class="col-md-3">
+    	<a href="{{url_for('dashboard.dashboardIndex',id = current_user.id)}}" class="btn btn-sm btn-block btn-primary">Cancel Update</a>
+    	<a href="{{url_for('dashboard.delete',id = event.id)}}" class="btn btn-sm btn-block btn-danger">Delete This Event</a>
+    </div>
+    <div class="col-md-7">
+        <p>{{ wtf.quick_form(editForm) }}</p>
+        {{simplemde.load}}
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+{% endblock %}
