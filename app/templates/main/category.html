@@ -5,6 +5,7 @@
 <li> {{macro.displayCategory(events)}} </li>
 {% for event in events %}
 <button type="button" class="btn btn-info"><a href ="{{url_for('main.event',id=event.id)}}">View Event details</a></button>
+<a href="{{url_for('main.join',creatorId = event.creator_id,eventId = event.id)}}" class="btn btn-sm btn-success">Join Event</a>
 
 {% endfor %}
 </ul>

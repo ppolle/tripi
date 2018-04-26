@@ -9,7 +9,6 @@ class User(UserMixin,db.Model):
 
 	__tablename__ = 'users'
 	id = db.Column(db.Integer,primary_key = True)
-	name = db.Column(db.String(255))
 	firstname = db.Column(db.String(255))
 	lastname = db.Column(db.String(255))
 	email = db.Column(db.String(255))
@@ -60,7 +59,7 @@ class Category(db.Model):
 	def __repr__(self):
 		return f'Category {self.name}'
 
-class Joiner(db.Model):
+class Join(db.Model):
 	__tablename__ = 'joiners'
 	id = db.Column(db.Integer,primary_key = True)
 	name = db.Column(db.Text)
