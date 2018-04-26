@@ -10,4 +10,4 @@ def index():
 @main.route('/payment', methods=['POST'])
 def payment():
 
-	return jsonify({})
+	return jsonify({'paymentID': 'PAYMENTID'})

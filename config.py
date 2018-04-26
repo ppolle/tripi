@@ -1,4 +1,6 @@
 import os
+import paypalrestsdk
+
 
 class Config:
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -10,6 +12,11 @@ class Config:
 	MAIL_USE_TLS = True
 	MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
 	MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
+	paypalrestsdk.configure({
+		"mode": "sandbox",
+		"client_id": "AT_VnbXIVNiMMSOCBdMBukGy1-sgdrEUp8Nc4b_4Gg0VoSsM2LbzUUFjnM9_lLl0vWhyQ5bEEIBehAQj",
+		"client_secret": "ECuYlVhAGssqQLWNoafFxNxiXfacuPPfNbkt_xwDm_JvNWlZf2JBmSnmvGBAn8olJtkvhqiECXOUTWH8" })
 
 	@staticmethod
 	def init_app(app):

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container">
 	<h1 class="text-center">Welcome to Flask Base App</h1>	
 </div>
-
-<div id="paypal-button"></div>
+ <div id="paypal-button"></div>
 
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
@@ -21,7 +21,7 @@
 
         payment: function() {
             return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
-                return data.id;
+                return data.paymentID;
             });
         },
 
