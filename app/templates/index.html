@@ -10,7 +10,7 @@
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 <script>
-    var CREATE_PAYMENT_URL  = 'https://my-store.com/paypal/create-payment';
+    var CREATE_PAYMENT_URL  = '{{url_for("main.payment")}}';
     var EXECUTE_PAYMENT_URL = 'https://my-store.com/paypal/execute-payment';
 
     paypal.Button.render({
