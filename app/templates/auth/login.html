@@ -25,13 +25,13 @@ Login
       <div class="col-md-6 login-form w3">
 		<div class="signin-form profile">
       <form class="form-signin" method="POST" name="form1" id="form1" action="{{url_for('auth.login')}}">
-       <h2 class="form-signin-heading">Please sign in</h2>
+       <h1 class="form-signin-heading">Sign in</h1>
         {{ login_form.hidden_tag() }}
         {{wtf.form_field(login_form.username)}}
         {{wtf.form_field(login_form.email)}}
         {{wtf.form_field(login_form.password)}}
         {{wtf.form_field(login_form.remember)}}
-        <input  type="submit" value="REGISTER">
+        <input  type="submit" value="Sign In">
       </form>
     </div>
     </div>
@@ -42,7 +42,7 @@ Login
   <div class="agile col-md-6">
     <div class="signin-form profile">
       <form class="form-signin" method="POST" action="{{url_for('auth.register')}}">
-        <h2 class="form-signin-heading">Sign Up</h2>
+        <h1 class="form-signin-heading">Sign Up</h1>
         <div class="login-form">
         {{ registration_form.hidden_tag() }}
         {{wtf.form_field(registration_form.firstname)}}
