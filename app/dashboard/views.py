@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from ..models import User, Event, Category
 from .forms import createEventForm, editEventForm
 from .. import db
+import markdown2
 
 
 @dashboard.route('/createEvent/<int:id>', methods=['GET', 'POST'])
@@ -64,4 +65,5 @@ def single(id):
     details = Event.query.get(id)
     title = f"Tripi| {details.name}"
 
-    return render_template('dashboard/single.html',details =  details,title= title)
+    formatEvent = markdown2.markdown(details.description,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('dashboard/single.html',details =  details,title= title,formatEvent = formatEvent)
