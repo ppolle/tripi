@@ -5,13 +5,20 @@
 <div class="container">
 	<h1 class="text-center">Welcome to Flask Base App</h1>	
 </div>
+
+
+<div>
+
+
+</div>
+
  <div id="paypal-button"></div>
 
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 <script>
     var CREATE_PAYMENT_URL  = '{{url_for("main.payment")}}';
-    var EXECUTE_PAYMENT_URL = 'https://my-store.com/paypal/execute-payment';
+    var EXECUTE_PAYMENT_URL = '{{url_for("main.execute")}}';
 
     paypal.Button.render({
 
@@ -29,8 +36,8 @@
             return paypal.request.post(EXECUTE_PAYMENT_URL, {
                 paymentID: data.paymentID,
                 payerID:   data.payerID
-            }).then(function() {
-
+            }).then(function(res) {
+				print(res.success)
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
             });

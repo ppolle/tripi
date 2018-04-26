@@ -22,11 +22,11 @@ def payment():
 				"items": [{
 					"name": "testitem",
 					"sku": "12345",
-					"price": "500.00",
+					"price": "50.00",
 					"currency": "USD",
 					"quantity": 1}]},
 			"amount": {
-				"total": "500.00",
+				"total": "50.00",
 				"currency": "USD"},
 			"description": "This is the payment transaction description."}]})
 	
@@ -35,6 +35,19 @@ def payment():
 	else:
 		print(payment.error)
 	
-
-	
 	return jsonify({'paymentID': payment.id})
+
+
+@main.route('/execute', methods=['POST'])
+def execute():
+
+	success = False
+	payment = paypalrestsdk.Payment.find(request.form['paymentID'])
+	
+	if payment.execute({'payer_id': request.form['payerID']}):
+		print('Executed Successfully')
+		succes = True
+	else:
+		print(pament.error)
+	
+	return jsonify({'success' : success})
