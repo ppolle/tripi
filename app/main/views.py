@@ -34,12 +34,21 @@ def join(creatorId,eventId):
 	if checkJoin:
 		flash('You have already registered for this particular event')
 		return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
+	elif Event.query.filter_by(id = eventId, creator_id = current_user.id).first():
+		flash('You cant join an event you created')
+		return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
+
 	else:
 		event = Event.query.get(eventId).p_count
-		Event.query.filter_by(id = eventId).update({"p_count":event-1})
-		join = Join(name = current_user.firstname,joiner_id = current_user.id,creator_id = creatorId,event_id = eventId)
-		event = Event.query.get(eventId)
-		db.session.add(join)
-		db.session.commit()
-		flash(f'You have succesfully joined {event.name} Event')
-		return redirect(url_for('dashboard.dashboardIndex', id = current_user.id))
+		if event > 0:
+			Event.query.filter_by(id = eventId).update({"p_count":event-1})
+
+			join = Join(name = current_user.firstname,joiner_id = current_user.id,creator_id = creatorId,event_id = eventId)
+			event = Event.query.get(eventId)
+			db.session.add(join)
+			db.session.commit()
+			flash(f'You have succesfully joined {event.name} Event')
+			return redirect(url_for('dashboard.dashboardIndex', id = current_user.id))
+		else:
+			flash('Sorry!But this event is fully booked!')
+			return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
