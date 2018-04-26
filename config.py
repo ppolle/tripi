@@ -1,19 +1,20 @@
 import os
 
+
 class Config:
-	SQLALCHEMY_TRACK_MODIFICATIONS = False
-	UPLOADED_PHOTOS_DEST ='app/static/photos'
-	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://username:password@localhost/database_name'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOADED_PHOTOS_DEST = 'app/static/photos'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://abdullahinir:totpot90210@localhost/tripi'
 
-	MAIL_SERVER = 'smtp.googlemail.com'
-	MAIL_PORT = 587
-	MAIL_USE_TLS = True
-	MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-	MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
-	@staticmethod
-	def init_app(app):
-		pass
+    @staticmethod
+    def init_app(app):
+        pass
 
 
 class ProdConfig(Config):
@@ -23,7 +24,8 @@ class ProdConfig(Config):
 class DevConfig(Config):
     DEBUG = True
 
+
 config_options = {
-'development':DevConfig,
-'production':ProdConfig
+    'development': DevConfig,
+    'production': ProdConfig
 }
