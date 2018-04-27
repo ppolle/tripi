@@ -21,6 +21,7 @@ def login():
         user = User.query.filter_by(email = login_form.email.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
+            flash('Login Success.Welcome back!')
             return redirect(url_for('dashboard.dashboardIndex',id = user.id))
 
         flash('Invalid username or Password')
@@ -33,12 +34,12 @@ def register():
     form = RegistrationForm()
     login_form = LoginForm()
     if form.validate_on_submit():
-        user = User(email = form.email.data, name = form.name.data,password = form.password.data)
+        user = User(email = form.email.data, firstname = form.firstname.data,lastname = form.lastname.data,password = form.password.data)
         db.session.add(user)
         db.session.commit()
+        flash('Success: You have succesfully registered a new account.Login to access your new account')
         return redirect(url_for('auth.login'))
-        title = "New Account"
-        
+    title = "Tripi | Authentication"
     return render_template('auth/login.html',registration_form = form, login_form = login_form)
 
 @auth.route('/logout')

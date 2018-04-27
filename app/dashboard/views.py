@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from . import dashboard
 from flask_login import login_user, logout_user, login_required, current_user
-from ..models import User, Event, Category
+from ..models import User, Event, Category,Join
 from .forms import createEventForm, editEventForm
 from .. import db
 import markdown2
@@ -12,9 +12,13 @@ import markdown2
 def dashboardIndex(id):
     event_form = createEventForm()
    
-    events = Event.query.filter_by(creator_id = id).all()
-    event = Event.query.filter_by(creator_id=id).first()
-    eventsJoined = Event.query.filter_by(joiner_id=id).all()
+    events = Event.query.filter_by(creator_id = current_user.id).all()
+    joins = Join.query.filter_by(joiner_id = current_user.id).all()
+    for join in joins:
+        eventsJoined = Event.query.filter_by(id =join.event_id).all()
+        title = "Tripi | Dashboard"
+        return render_template('dashboard/index.html', id=current_user.id, event_form=event_form, events= events, title= title,eventsJoined = eventsJoined)
+
 
     if event_form.validate_on_submit():
         event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id, category_id = event_form.category.data)
@@ -24,7 +28,7 @@ def dashboardIndex(id):
         return redirect(url_for('dashboard.dashboardIndex',id = id))
     
     title = "Tripi | Dashboard"
-    return render_template('dashboard/index.html', id=id, event_form=event_form, events= events, title= title)
+    return render_template('dashboard/index.html', id=current_user.id, event_form=event_form, events= events, title= title)
 
 
 @dashboard.route('/editEvent/<int:id>', methods=['GET', 'POST'])

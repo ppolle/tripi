@@ -11,9 +11,9 @@ Login
 
 {% block content %}
     <div class="container-fluid">
-      <div class="row">
+      <div class="row container">
           {% for message in get_flashed_messages() %}
-          <div class="alert alert-danger">
+          <div class="alert alert-warning">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           {{ message }}
           </div>
@@ -38,7 +38,6 @@ Login
     {{ registration_form.hidden_tag() }}
     {{wtf.form_field(registration_form.firstname)}}
     {{wtf.form_field(registration_form.lastname)}}
-    {{wtf.form_field(registration_form.name)}}
     {{wtf.form_field(registration_form.email)}}
     {{wtf.form_field(registration_form.password)}}
     {{wtf.form_field(registration_form.password_confirm)}}
