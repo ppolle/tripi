@@ -5,7 +5,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://abdullahinir:totpot90210@localhost/tripi'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://abdullahinir:totpot90210@localhost/tripi2'
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
     MAIL_SERVER = 'smtp.googlemail.com'

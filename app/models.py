@@ -2,7 +2,6 @@ from . import login_manager, db
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
 
 
 class User(UserMixin, db.Model):
@@ -11,6 +10,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(255))
     lastname = db.Column(db.String(255))
+
     email = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
 
@@ -43,14 +43,14 @@ class Event(db.Model):
     description = db.Column(db.String)
     creator_id = db.Column(db.Integer)
     joiner_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     def __repr__(self):
         return f'Event {self.name}'
 
 
 class Category(db.Model):
-    __tablename__ = 'categories'
+    __tablename__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     events = db.relationship('Event', backref='event', lazy='dynamic')

@@ -1,5 +1,9 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf%}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='auth/signin.css')}}">
+{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -13,7 +17,7 @@
       {% endfor %}
       <div class="row">
         <div class="col-md-2">
-           <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">
+           <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">
         Create Event
     </button>
         </div>
@@ -30,7 +34,7 @@
            </tr>
             {%for event in events%}
                <tr>
-                   
+
                   <td>{{event.name}}</td>
                   <td>{{event.location}}</td>
                   <td>{{event.description}}</td>
@@ -46,11 +50,11 @@
     {%else%}
     <h4 class="text-center">You currently do not have any registered event. Register an event <a href="#" data-toggle="modal" data-target="#myModal">here</a></h4>
     {%endif%}
-          
+
         </div>
       </div>
-   
-    
+
+
 
 
 </div>
@@ -68,7 +72,7 @@
                 <p>{{ wtf.quick_form(event_form) }}</p>
                 {{simplemde.load}}
             </div>
-            
+
         </div>
     </div>
 </div>

@@ -11,20 +11,23 @@ import markdown2
 @login_required
 def dashboardIndex(id):
     event_form = createEventForm()
-   
-    events = Event.query.filter_by(creator_id = id).all()
+
+    events = Event.query.filter_by(creator_id=id).all()
     event = Event.query.filter_by(creator_id=id).first()
     eventsJoined = Event.query.filter_by(joiner_id=id).all()
 
     if event_form.validate_on_submit():
-        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data, event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id, category_id = event_form.category.data)
+        print(event_form.category.data)
+        category = Category.query.filter_by()
+        event = Event(name=event_form.title.data, location=event_form.location.data, p_count=event_form.persons.data,
+                      event_date=event_form.date.data, description=event_form.event_desc.data, creator_id=id, category_id=int(event_form.category.data))
         db.session.add(event)
         db.session.commit()
         flash(f'Event {event_form.title.data} created succesfully')
-        return redirect(url_for('dashboard.dashboardIndex',id = id))
-    
+        return redirect(url_for('dashboard.dashboardIndex', id=id))
+
     title = "Tripi | Dashboard"
-    return render_template('dashboard/index.html', id=id, event_form=event_form, events= events, title= title)
+    return render_template('dashboard/index.html', id=id, event_form=event_form, events=events, title=title)
 
 
 @dashboard.route('/editEvent/<int:id>', methods=['GET', 'POST'])
@@ -46,7 +49,8 @@ def editEvent(id):
     editForm.category.data = event.event
     editForm.persons.data = event.p_count
     title = "Tripi | Edit Event"
-    return render_template('dashboard/edit.html', editForm=editForm,event=event, title =  title)
+    return render_template('dashboard/edit.html', editForm=editForm, event=event, title=title)
+
 
 @dashboard.route('/deleteEvent/<int:id>')
 @login_required
@@ -56,7 +60,7 @@ def delete(id):
     db.session.commit()
 
     flash(f'You have succesfully deleted the {event.name} Event')
-    return redirect(url_for('dashboard.dashboardIndex',id = current_user.id))
+    return redirect(url_for('dashboard.dashboardIndex', id=current_user.id))
 
 
 @dashboard.route('/single/<int:id>')
@@ -65,5 +69,6 @@ def single(id):
     details = Event.query.get(id)
     title = f"Tripi| {details.name}"
 
-    formatEvent = markdown2.markdown(details.description,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('dashboard/single.html',details =  details,title= title,formatEvent = formatEvent)
+    formatEvent = markdown2.markdown(details.description, extras=[
+                                     "code-friendly", "fenced-code-blocks"])
+    return render_template('dashboard/single.html', details=details, title=title, formatEvent=formatEvent)
